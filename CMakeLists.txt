@@ -11,7 +11,6 @@ project(AnubisEngine
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY $<1:${AnubisEngine_SOURCE_DIR}/lib>)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY $<1:${AnubisEngine_SOURCE_DIR}/lib>)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY $<1:${AnubisEngine_SOURCE_DIR}/bin>)
-    
 
 option(USE_VENDORED_SDL "Download SDL3 from GitHub" ON)
 
@@ -92,5 +91,6 @@ configure_file(${AnubisEngine_SOURCE_DIR}/InputMap.conf ${AnubisEngine_SOURCE_DI
 # Copy images to image folder
 file(GLOB IMAGE_FILE_LIST CONFIGURE_DEPENDS ${AnubisEngine_SOURCE_DIR}/res/img/*)
 foreach(IMAGE_FILE ${IMAGE_FILE_LIST})
+    get_filename_component(FILENAME ${IMAGE_FILE} NAME)
     configure_file(${IMAGE_FILE} ${AnubisEngine_SOURCE_DIR}/bin/img/${FILENAME} COPYONLY)
 endforeach(IMAGE_FILE ${IMAGE_FILE_LIST})
