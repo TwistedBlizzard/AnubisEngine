@@ -1,0 +1,12 @@
+# Don't include VS Code config on main
+.vscode/
+
+# Visual Studio Cache
+.vs/
+
+# Output Directories
+[Bb]in/
+[Ll]ib/
+
+# CMake Build Directory
+[Bb]uild/
