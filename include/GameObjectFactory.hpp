@@ -51,7 +51,7 @@ public:
         return go;
     }
 
-    void Update();
+    void Update(double deltaTime);
 
     void Draw(SDL_Renderer* renderer);
 

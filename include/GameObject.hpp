@@ -12,7 +12,7 @@ public:
     GameObject();
     ~GameObject();
 
-    virtual void Update();
+    virtual void Update(double deltaTime);
 
     Transform& GetTransform();
     Vector2f& GetPosition();

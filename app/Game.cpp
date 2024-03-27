@@ -16,7 +16,10 @@ void Game::Setup(SDL_Renderer* renderer)
     InputMapParser::Parse("InputMap.conf");
 
     m_renderer = renderer;
-    
+
+    m_timing = new Timing();
+    m_timing->Init();
+
     m_spriteFactory = new SpriteFactory(renderer);
     m_gameObjectFactory = new GameObjectFactory(m_spriteFactory);
 
@@ -28,7 +31,11 @@ void Game::Setup(SDL_Renderer* renderer)
 
 void Game::Update()
 {
-    m_gameObjectFactory->Update();
+    m_timing->Update();
+
+    double deltaTime = m_timing->DeltaTime();
+
+    m_gameObjectFactory->Update(deltaTime);
 }
 
 void Game::Draw()

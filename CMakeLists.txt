@@ -61,7 +61,8 @@ set(AnubisEngine_SOURCE_LIST
     src/GameObjectFactory.cpp
     src/InputMapParser.cpp
     src/Sprite.cpp
-    src/SpriteFactory.cpp)
+    src/SpriteFactory.cpp
+    src/Timing.cpp)
 
 # Add our library
 add_library(AnubisEngine ${AnubisEngine_SOURCE_LIST} ${AnubisEngine_HEADER_LIST})

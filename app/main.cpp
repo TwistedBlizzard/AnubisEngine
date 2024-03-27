@@ -5,12 +5,6 @@ using std::endl;
 #include "Core.hpp"
 #include "Game.hpp"
 
-#ifdef _WIN32
-    #include <windows.h>
-#else
-    #include <unistd.h>
-#endif
-
 int main(int argc, char* argv[])
 {
     SDL_Init(SDL_INIT_EVENTS | SDL_INIT_VIDEO);
@@ -36,8 +30,6 @@ int main(int argc, char* argv[])
 
         game->Update();
         game->Draw();
-
-        Sleep(1000 / 144);
 
         SDL_RenderPresent(renderer);
     }

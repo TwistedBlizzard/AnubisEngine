@@ -7,7 +7,7 @@ m_sprite(nullptr)
 GameObject::~GameObject()
 {}
 
-void GameObject::Update()
+void GameObject::Update(double deltaTime)
 {
     // Do nothing for now
 }

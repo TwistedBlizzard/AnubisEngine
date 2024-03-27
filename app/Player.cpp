@@ -9,9 +9,9 @@ Player::Player()
 Player::~Player()
 {}
 
-void Player::Update()
+void Player::Update(double deltaTime)
 {
-    GameObject::Update();
+    GameObject::Update(deltaTime);
 
-    m_transform.rotation += 0.25;
+    m_transform.rotation += deltaTime * 25.0;
 }
