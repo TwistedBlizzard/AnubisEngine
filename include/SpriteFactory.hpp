@@ -17,7 +17,7 @@ public:
 
 private:
     SDL_Renderer* m_renderer;
-    std::map<string, SDL_Texture*> m_textures;
+    map<string, SDL_Texture*> m_textures;
 };
 
 #endif // SPRITEFACTORY_H

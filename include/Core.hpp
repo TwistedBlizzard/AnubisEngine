@@ -14,8 +14,9 @@ using std::vector;
 #include <list>
 using std::list;
 
-#include <map>
-using std::map;
+#include <unordered_map>
+template <class _key, class _value>
+using map = std::unordered_map<_key, _value>;
 
 #include <SDL3/SDL.h>
 #include <SDL3_image/SDL_image.h>
