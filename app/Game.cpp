@@ -5,6 +5,7 @@
 Game::Game():
 m_renderer(nullptr),
 m_spriteFactory(nullptr),
+m_gameObjectFactory(nullptr),
 m_quit(false)
 {}
 
