@@ -13,8 +13,6 @@ Game::~Game()
 
 void Game::Setup(SDL_Renderer* renderer)
 {
-    InputMapParser::Parse("InputMap.conf");
-
     m_renderer = renderer;
 
     m_timing = new Timing();

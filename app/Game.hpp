@@ -4,7 +4,6 @@
 #include "Core.hpp"
 #include "SpriteFactory.hpp"
 #include "GameObjectFactory.hpp"
-#include "InputMapParser.hpp"
 #include "Timing.hpp"
 
 class Game
