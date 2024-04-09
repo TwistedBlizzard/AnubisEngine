@@ -17,8 +17,8 @@ option(USE_VENDORED_SDL "Download SDL3 from GitHub" ON)
 if(${USE_VENDORED_SDL})
     # Disable Shared Libs
     set(BUILD_SHARED_LIBS OFF)
-    set(SDL_SHARED OFF)
-    set(SDL_STATIC ON)
+    set(SDL_SHARED OFF CACHE BOOL "Disable Shared Libs")
+    set(SDL_STATIC ON CACHE BOOL "Enable Static Libs")
 
     # Disable AVIF Support because it's currently broken
     set(SDL3IMAGE_AVIF OFF)
