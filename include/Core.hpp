@@ -21,4 +21,6 @@ using map = std::unordered_map<_key, _value>;
 #include <SDL3/SDL.h>
 #include <SDL3_image/SDL_image.h>
 
+#include "Vector2f.hpp"
+
 #endif // CORE_H
