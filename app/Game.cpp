@@ -5,7 +5,7 @@
 Game::Game():
 m_renderer(nullptr),
 m_spriteFactory(nullptr),
-m_gameObjectFactory(nullptr)
+m_quit(false)
 {}
 
 Game::~Game()
@@ -31,6 +31,16 @@ void Game::Setup(SDL_Renderer* renderer)
 
 void Game::Update()
 {
+    SDL_Event event;
+    while (SDL_PollEvent(&event))
+    {
+        if (event.type == SDL_EVENT_QUIT)
+        {
+            m_quit = true;
+            continue;
+        }
+    }
+
     m_timing->Update();
 
     double deltaTime = m_timing->DeltaTime();
@@ -41,4 +51,9 @@ void Game::Update()
 void Game::Draw()
 {
     m_gameObjectFactory->Draw(m_renderer);
+}
+
+bool Game::ShouldQuit()
+{
+    return m_quit;
 }

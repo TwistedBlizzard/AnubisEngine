@@ -18,11 +18,14 @@ public:
     void Update();
     void Draw();
 
+    bool ShouldQuit();
+
 private:
     SDL_Renderer* m_renderer;
     Timing* m_timing;
     SpriteFactory* m_spriteFactory;
     GameObjectFactory* m_gameObjectFactory;
+    bool m_quit;
 };
 
 #endif // GAME_H

@@ -19,13 +19,8 @@ int main(int argc, char* argv[])
 
     bool should_quit = false;
 
-    while (!should_quit)
+    while (!game->ShouldQuit())
     {
-        SDL_Event event;
-        SDL_PollEvent(&event);
-        if (event.type == SDL_EVENT_QUIT)
-            should_quit = true;
-
         SDL_RenderClear(renderer);
 
         game->Update();
