@@ -5,6 +5,7 @@
 #include "SpriteFactory.hpp"
 #include "GameObjectFactory.hpp"
 #include "Timing.hpp"
+#include "InputHandler.hpp"
 
 class Game
 {
@@ -24,6 +25,7 @@ private:
     Timing* m_timing;
     SpriteFactory* m_spriteFactory;
     GameObjectFactory* m_gameObjectFactory;
+    InputHandler* m_inputHandler;
     bool m_quit;
 };
 

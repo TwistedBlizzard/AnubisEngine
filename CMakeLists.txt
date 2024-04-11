@@ -59,7 +59,7 @@ file(GLOB AnubisEngine_HEADER_LIST CONFIGURE_DEPENDS ${AnubisEngine_SOURCE_DIR}/
 set(AnubisEngine_SOURCE_LIST
     src/GameObject.cpp
     src/GameObjectFactory.cpp
-    src/InputMap.cpp
+    src/InputHandler.cpp
     src/Sprite.cpp
     src/SpriteFactory.cpp
     src/Timing.cpp)

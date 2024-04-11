@@ -4,8 +4,10 @@
 
 Game::Game():
 m_renderer(nullptr),
+m_timing(nullptr),
 m_spriteFactory(nullptr),
 m_gameObjectFactory(nullptr),
+m_inputHandler(nullptr),
 m_quit(false)
 {}
 
@@ -25,7 +27,9 @@ void Game::Setup(SDL_Renderer* renderer)
     m_spriteFactory->LoadTexture("Ship 1", "img/Ship1.png");
     m_spriteFactory->LoadTexture("Ship 2", "img/Ship2.png");
 
-    GameObject* player1 = m_gameObjectFactory->Create<Player>("Ship 1");
+    m_inputHandler = new InputHandler();
+    
+    GameObject* go = m_gameObjectFactory->Create<Player>("Ship 1", m_inputHandler);
 }
 
 void Game::Update()
@@ -38,6 +42,8 @@ void Game::Update()
             m_quit = true;
             continue;
         }
+
+        m_inputHandler->HandleEvent(event);
     }
 
     m_timing->Update();
