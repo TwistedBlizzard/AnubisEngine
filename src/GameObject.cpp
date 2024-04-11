@@ -12,7 +12,7 @@ void GameObject::Update(double deltaTime)
     // Do nothing for now
 }
 
-Transform& GameObject::GetTransform()
+Transform &GameObject::GetTransform()
 {
     return m_transform;
 }
