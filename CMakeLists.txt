@@ -8,6 +8,8 @@ project(AnubisEngine
     VERSION 0.1
     LANGUAGES CXX)
 
+option(BUILD_ANUBISENGINE_DEMO "Build demo for AnubisEngine" OFF)
+
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY $<1:${AnubisEngine_SOURCE_DIR}/lib>)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY $<1:${AnubisEngine_SOURCE_DIR}/lib>)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY $<1:${AnubisEngine_SOURCE_DIR}/bin>)
@@ -73,22 +75,24 @@ target_include_directories(AnubisEngine PUBLIC include)
 # Link SDL3 and SDL3_image to our engine
 target_link_libraries(AnubisEngine PUBLIC SDL3::SDL3 SDL3_image::SDL3_image)
 
-# Collect the header files for the demo
-file(GLOB AnubisDemo_HEADER_LIST CONFIGURE_DEPENDS ${AnubisEngine_SOURCE_DIR}/app/*.hpp)
+if (${BUILD_ANUBISENGINE_DEMO})
+    # Collect the header files for the demo
+    file(GLOB AnubisDemo_HEADER_LIST CONFIGURE_DEPENDS ${AnubisEngine_SOURCE_DIR}/app/*.hpp)
 
-# Set the source files for the demo
-set(AnubisDemo_SOURCE_LIST
-    app/Game.cpp
-    app/main.cpp
-    app/Player.cpp)
+    # Set the source files for the demo
+    set(AnubisDemo_SOURCE_LIST
+        app/Game.cpp
+        app/main.cpp
+        app/Player.cpp)
 
-# This is our only executable currently
-add_executable(AnubisDemo ${AnubisDemo_SOURCE_LIST} ${AnubisDemo_HEADER_LIST})
-target_link_libraries(AnubisDemo PRIVATE AnubisEngine)
+    # This is our only executable currently
+    add_executable(AnubisDemo ${AnubisDemo_SOURCE_LIST} ${AnubisDemo_HEADER_LIST})
+    target_link_libraries(AnubisDemo PRIVATE AnubisEngine)
 
-# Copy images to image folder
-file(GLOB IMAGE_FILE_LIST CONFIGURE_DEPENDS ${AnubisEngine_SOURCE_DIR}/res/img/*)
-foreach(IMAGE_FILE ${IMAGE_FILE_LIST})
-    get_filename_component(FILENAME ${IMAGE_FILE} NAME)
-    configure_file(${IMAGE_FILE} ${AnubisEngine_SOURCE_DIR}/bin/img/${FILENAME} COPYONLY)
-endforeach(IMAGE_FILE ${IMAGE_FILE_LIST})
+    # Copy images to image folder
+    file(GLOB IMAGE_FILE_LIST CONFIGURE_DEPENDS ${AnubisEngine_SOURCE_DIR}/res/img/*)
+    foreach(IMAGE_FILE ${IMAGE_FILE_LIST})
+        get_filename_component(FILENAME ${IMAGE_FILE} NAME)
+        configure_file(${IMAGE_FILE} ${AnubisEngine_SOURCE_DIR}/bin/img/${FILENAME} COPYONLY)
+    endforeach(IMAGE_FILE ${IMAGE_FILE_LIST})
+endif()
