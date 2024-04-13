@@ -86,9 +86,6 @@ set(AnubisDemo_SOURCE_LIST
 add_executable(AnubisDemo ${AnubisDemo_SOURCE_LIST} ${AnubisDemo_HEADER_LIST})
 target_link_libraries(AnubisDemo PRIVATE AnubisEngine)
 
-# Copy input map to executable folder
-configure_file(${AnubisEngine_SOURCE_DIR}/InputMap.conf ${AnubisEngine_SOURCE_DIR}/bin/InputMap.conf COPYONLY)
-
 # Copy images to image folder
 file(GLOB IMAGE_FILE_LIST CONFIGURE_DEPENDS ${AnubisEngine_SOURCE_DIR}/res/img/*)
 foreach(IMAGE_FILE ${IMAGE_FILE_LIST})
