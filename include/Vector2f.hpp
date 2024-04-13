@@ -1,6 +1,8 @@
 #ifndef VECTOR2F_H
 #define VECTOR2F_H
 
+#include <cmath>
+
 struct Vector2f
 {
     float x = 0.0f;

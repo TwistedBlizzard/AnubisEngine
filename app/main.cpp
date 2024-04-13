@@ -7,12 +7,10 @@ using std::endl;
 
 int main(int argc, char* argv[])
 {
-    SDL_Init(SDL_INIT_EVENTS | SDL_INIT_VIDEO);
+    SDL_Init(SDL_INIT_EVENTS | SDL_INIT_VIDEO | SDL_INIT_GAMEPAD);
 
-    SDL_Window* window = nullptr;
-    SDL_Renderer* renderer = nullptr;
-
-    SDL_CreateWindowAndRenderer(1024, 768, SDL_WINDOW_RESIZABLE, &window, &renderer);
+    SDL_Window* window = SDL_CreateWindow("AnubisEngine Demo", 1024, 768, SDL_WINDOW_RESIZABLE);
+    SDL_Renderer* renderer = SDL_CreateRenderer(window, NULL, 0);
 
     Game* game = new Game();
     game->Setup(renderer);
@@ -21,6 +19,7 @@ int main(int argc, char* argv[])
 
     while (!game->ShouldQuit())
     {
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
         SDL_RenderClear(renderer);
 
         game->Update();
