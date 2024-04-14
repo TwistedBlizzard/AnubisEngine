@@ -15,10 +15,10 @@ public:
     ~GameObjectFactory();
 
     template <class T, class... A>
-    GameObject* Create(string spriteName, A... args) 
+    T* Create(string spriteName, A... args) 
     {
 
-        GameObject* go = new T(args...);
+        T* go = new T(args...);
         Vector2f size {128.0f, 128.0f};
 
         Sprite* sprite = m_spriteFactory->Create(spriteName, size);
