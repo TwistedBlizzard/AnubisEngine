@@ -27,6 +27,11 @@ private:
     GameObjectFactory* m_gameObjectFactory;
     InputHandler* m_inputHandler;
     bool m_quit;
+
+    bool m_paused;
+    bool m_pauseKey;
+    bool m_lastPauseKey;
+    double m_pauseCounter;
 };
 
 #endif // GAME_H
