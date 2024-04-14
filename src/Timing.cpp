@@ -42,6 +42,11 @@ void Timing::Unpause()
     m_pausedTime = 0.0;
 }
 
+bool Timing::Paused()
+{
+    return m_paused;
+}
+
 double Timing::DeltaTime()
 {
     return m_deltaTime;

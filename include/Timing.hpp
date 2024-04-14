@@ -14,6 +14,7 @@ public:
 
     void Pause();
     void Unpause();
+    bool Paused();
 
     double DeltaTime();
     double PausedTime();
