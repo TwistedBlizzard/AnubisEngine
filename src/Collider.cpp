@@ -2,7 +2,9 @@
 
 Collider::Collider(ColliderType type, Transform* transform):
 m_type(type),
-m_transform(transform)
+m_transform(transform),
+m_AABBColor(COLOR_GREEN),
+m_ColliderColor(COLOR_YELLOW)
 {}
 
 Collider::~Collider()
@@ -12,11 +14,21 @@ void Collider::DrawAABB(SDL_Renderer *renderer)
 {
     SDL_FRect rect = GetAABB();
 
-    Uint8 r, g, b, a;
-    SDL_GetRenderDrawColor(renderer, &r, &g, &b, &a);
-    SDL_SetRenderDrawColor(renderer, 255, 0, 0, SDL_ALPHA_OPAQUE);
+    SDL_Color old;
+    GetRenderDrawColor(renderer, old);
+    SetRenderDrawColor(renderer, m_AABBColor);
     SDL_RenderRect(renderer, &rect);
-    SDL_SetRenderDrawColor(renderer, r, g, b, a);
+    SetRenderDrawColor(renderer, old);
+}
+
+void Collider::SetAABBColor(SDL_Color color)
+{
+    m_AABBColor = color;
+}
+
+void Collider::SetColliderColor(SDL_Color color)
+{
+    m_ColliderColor = color;
 }
 
 bool Collider::CheckAABB(Collider *other)

@@ -24,6 +24,9 @@ public:
     void DrawAABB(SDL_Renderer* renderer);
     virtual void DrawCollider(SDL_Renderer* renderer) {}
 
+    void SetAABBColor(SDL_Color color);
+    void SetColliderColor(SDL_Color color);
+
 protected:
     ColliderType m_type;
 
@@ -31,6 +34,9 @@ protected:
 
     virtual SDL_FRect GetAABB() = 0;
     bool CheckAABB(Collider* other);
+
+    SDL_Color m_AABBColor;
+    SDL_Color m_ColliderColor;
 };
 
 #endif // COLLIDER_H

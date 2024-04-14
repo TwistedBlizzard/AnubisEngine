@@ -42,11 +42,11 @@ void CircleCollider::DrawCollider(SDL_Renderer *renderer)
 
     points[36] = points[0];
 
-    Uint8 r, g, b, a;
-    SDL_GetRenderDrawColor(renderer, &r, &g, &b, &a);
-    SDL_SetRenderDrawColor(renderer, 255, 255, 0, SDL_ALPHA_OPAQUE);
+    SDL_Color old;
+    GetRenderDrawColor(renderer, old);
+    SetRenderDrawColor(renderer, m_ColliderColor);
     SDL_RenderLines(renderer, points, 37);
-    SDL_SetRenderDrawColor(renderer, r, g, b, a);
+    SetRenderDrawColor(renderer, old);
 }
 
 SDL_FRect CircleCollider::GetAABB()
