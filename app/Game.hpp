@@ -3,6 +3,8 @@
 
 #include "Core.hpp"
 #include "Engine.hpp"
+#include "Player.hpp"
+#include "Enemy.hpp"
 
 class Game
 {
@@ -24,6 +26,9 @@ private:
     bool m_pauseKey;
     bool m_lastPauseKey;
     double m_pauseCounter;
+
+    Player* m_player;
+    Enemy* m_enemy;
 };
 
 #endif // GAME_H

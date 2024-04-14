@@ -3,7 +3,7 @@
 
 #include "Engine.hpp"
 #include "GameObject.hpp"
-#include "CircleCollider.hpp"
+#include "BoxCollider.hpp"
 
 class Player : public GameObject
 {
@@ -15,6 +15,8 @@ public:
 
     void Draw(SDL_Renderer* renderer) override;
 
+    void CheckCollision(Collider* collider);
+
 private:
     bool moveLeft;
     bool moveRight;
@@ -23,6 +25,9 @@ private:
     bool fire;
     bool special;
     Vector2f mousePos;
+
+    bool m_colliding;
+    double m_pauseTimer;
 };
 
 #endif // PLAYER_H

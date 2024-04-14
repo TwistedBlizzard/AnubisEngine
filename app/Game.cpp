@@ -18,7 +18,7 @@ void Game::Setup()
     Engine::spriteFactory->LoadTexture("Ship 1", "img/Ship1.png");
     Engine::spriteFactory->LoadTexture("Ship 2", "img/Ship2.png");
 
-    Engine::gameObjectFactory->Create<Player>("Ship 1");
+    m_player = Engine::gameObjectFactory->Create<Player>("Ship 1");
     m_enemy = Engine::gameObjectFactory->Create<Enemy>("Ship 2");
 
     Engine::inputHandler->RegisterValue(KEYBOARD, "Delete", &m_pauseKey);
