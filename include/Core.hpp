@@ -3,6 +3,10 @@
 
 #include <cmath>
 
+#ifndef M_PIf
+#define M_PIf 3.14159265358979323846f
+#endif // M_PIf
+
 #include <iostream>
 using std::cout;
 using std::endl;
