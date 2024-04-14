@@ -3,8 +3,6 @@
 
 #include "Core.hpp"
 
-#include "Vector2f.hpp"
-
 class Sprite
 {
 public:

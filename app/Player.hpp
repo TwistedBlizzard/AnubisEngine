@@ -3,6 +3,7 @@
 
 #include "GameObject.hpp"
 #include "InputHandler.hpp"
+#include "CircleCollider.hpp"
 
 class Player : public GameObject
 {
@@ -11,6 +12,8 @@ public:
     ~Player();
 
     void Update(double deltaTime) override;
+
+    void Draw(SDL_Renderer* renderer) override;
 
 private:
     bool moveLeft;

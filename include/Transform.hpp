@@ -1,7 +1,7 @@
 #ifndef TRANSFORM_H
 #define TRANSFORM_H
 
-#include "Vector2f.hpp"
+#include "Core.hpp"
 
 struct Transform
 {

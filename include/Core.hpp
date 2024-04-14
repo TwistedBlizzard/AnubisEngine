@@ -1,6 +1,8 @@
 #ifndef CORE_H
 #define CORE_H
 
+#include <cmath>
+
 #include <iostream>
 using std::cout;
 using std::endl;
@@ -20,6 +22,16 @@ using map = std::unordered_map<_key, _value>;
 
 #include <SDL3/SDL.h>
 #include <SDL3_image/SDL_image.h>
+
+inline static float Degrees(const float& radians)
+{
+    return radians * (180.0f / M_PIf);
+}
+
+inline static float Radians(const float& degrees)
+{
+    return degrees * (M_PIf / 180.0f);
+}
 
 #include "Vector2f.hpp"
 

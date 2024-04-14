@@ -18,6 +18,8 @@ special(false)
     inputHandler->RegisterValue(MOUSE_BUTTON, "Left", &fire);
     inputHandler->RegisterValue(MOUSE_BUTTON, "Right", &special);
     inputHandler->RegisterValue(MOUSE_POSITION, &mousePos);
+
+    m_collider = new CircleCollider(64.0f, &m_transform);
 }
 
 Player::~Player()
@@ -39,7 +41,17 @@ void Player::Update(double deltaTime)
     if (moveDown)
         velocity.y += 1.0f;
 
+    velocity.Normalise();
+
     float speed = 100.0f;
 
-    m_transform.position += velocity.Normalised() * deltaTime * speed;
+    m_transform.position += velocity * deltaTime * speed;
+}
+
+void Player::Draw(SDL_Renderer *renderer)
+{
+    GameObject::Draw(renderer);
+
+    m_collider->DrawCollider(renderer);
+    m_collider->DrawAABB(renderer);
 }

@@ -1,7 +1,8 @@
 #include "GameObject.hpp"
 
 GameObject::GameObject():
-m_sprite(nullptr)
+m_sprite(nullptr),
+m_collider(nullptr)
 {}
 
 GameObject::~GameObject()

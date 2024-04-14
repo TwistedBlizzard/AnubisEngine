@@ -5,6 +5,7 @@
 
 #include "Transform.hpp"
 #include "Sprite.hpp"
+#include "Collider.hpp"
 
 class GameObject
 {
@@ -30,6 +31,7 @@ public:
 protected:
     Transform m_transform;
     Sprite* m_sprite;
+    Collider* m_collider;
 };
 
 #endif // GAMEOBJECT_H

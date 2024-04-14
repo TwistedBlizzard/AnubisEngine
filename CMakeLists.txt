@@ -59,6 +59,9 @@ file(GLOB AnubisEngine_HEADER_LIST CONFIGURE_DEPENDS ${AnubisEngine_SOURCE_DIR}/
 
 # Set our source files
 set(AnubisEngine_SOURCE_LIST
+    src/BoxCollider.cpp
+    src/CircleCollider.cpp
+    src/Collider.cpp
     src/GameObject.cpp
     src/GameObjectFactory.cpp
     src/InputHandler.cpp
