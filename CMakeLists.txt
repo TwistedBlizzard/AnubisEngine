@@ -84,6 +84,7 @@ if (${BUILD_ANUBISENGINE_DEMO})
 
     # Set the source files for the demo
     set(AnubisDemo_SOURCE_LIST
+        app/Engine.cpp
         app/Game.cpp
         app/main.cpp
         app/Player.cpp)

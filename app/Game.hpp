@@ -2,10 +2,7 @@
 #define GAME_H
 
 #include "Core.hpp"
-#include "SpriteFactory.hpp"
-#include "GameObjectFactory.hpp"
-#include "Timing.hpp"
-#include "InputHandler.hpp"
+#include "Engine.hpp"
 
 class Game
 {
@@ -13,7 +10,7 @@ public:
     Game();
     ~Game();
 
-    void Setup(SDL_Renderer* renderer);
+    void Setup();
 
     void Update();
     void Draw();
@@ -21,11 +18,6 @@ public:
     bool ShouldQuit();
 
 private:
-    SDL_Renderer* m_renderer;
-    Timing* m_timing;
-    SpriteFactory* m_spriteFactory;
-    GameObjectFactory* m_gameObjectFactory;
-    InputHandler* m_inputHandler;
     bool m_quit;
 
     bool m_paused;

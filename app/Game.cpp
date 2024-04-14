@@ -1,41 +1,29 @@
 #include "Game.hpp"
 
-#include "Player.hpp"
-
 Game::Game():
-m_renderer(nullptr),
-m_timing(nullptr),
-m_spriteFactory(nullptr),
-m_gameObjectFactory(nullptr),
-m_inputHandler(nullptr),
 m_quit(false),
 m_paused(false),
 m_pauseKey(false),
 m_lastPauseKey(false),
-m_pauseCounter(0.0)
+m_pauseCounter(0.0),
+m_player(nullptr),
+m_enemy(nullptr)
 {}
 
 Game::~Game()
 {}
 
-void Game::Setup(SDL_Renderer* renderer)
+void Game::Setup()
 {
-    m_renderer = renderer;
+    Engine::spriteFactory->LoadTexture("Ship 1", "img/Ship1.png");
+    Engine::spriteFactory->LoadTexture("Ship 2", "img/Ship2.png");
 
-    m_timing = new Timing();
-    m_timing->Init();
+    Engine::gameObjectFactory->Create<Player>("Ship 1");
+    m_enemy = Engine::gameObjectFactory->Create<Enemy>("Ship 2");
 
-    m_spriteFactory = new SpriteFactory(renderer);
-    m_gameObjectFactory = new GameObjectFactory(m_spriteFactory);
+    Engine::inputHandler->RegisterValue(KEYBOARD, "Delete", &m_pauseKey);
 
-    m_spriteFactory->LoadTexture("Ship 1", "img/Ship1.png");
-    m_spriteFactory->LoadTexture("Ship 2", "img/Ship2.png");
-
-    m_inputHandler = new InputHandler();
-    
-    GameObject* go = m_gameObjectFactory->Create<Player>("Ship 1", m_inputHandler);
-
-    m_inputHandler->RegisterValue(KEYBOARD, "Delete", &m_pauseKey);
+    Engine::timing->Init();
 }
 
 void Game::Update()
@@ -49,10 +37,10 @@ void Game::Update()
             continue;
         }
 
-        m_inputHandler->HandleEvent(event);
+        Engine::inputHandler->HandleEvent(event);
     }
 
-    m_timing->Update();
+    Engine::timing->Update();
 
     bool unpaused = false;
 
@@ -64,11 +52,11 @@ void Game::Update()
 
         if (m_paused)
         {
-            m_timing->Pause();
+            Engine::timing->Pause();
         }
         else
         {
-            m_timing->Unpause();
+            Engine::timing->Unpause();
             unpaused = true;
         }
     }
@@ -78,9 +66,9 @@ void Game::Update()
         m_lastPauseKey = false;
     }
 
-    m_pauseCounter += m_timing->PausedTime();
+    m_pauseCounter += Engine::timing->PausedTime();
 
-    double deltaTime = m_timing->DeltaTime();
+    double deltaTime = Engine::timing->DeltaTime();
 
     if (unpaused)
     {
@@ -88,12 +76,14 @@ void Game::Update()
         m_pauseCounter = 0.0;
     }
 
-    m_gameObjectFactory->Update(deltaTime);
+    Engine::gameObjectFactory->Update(deltaTime);
+
+    m_player->CheckCollision(m_enemy->GetCollider());
 }
 
 void Game::Draw()
 {
-    m_gameObjectFactory->Draw(m_renderer);
+    Engine::gameObjectFactory->Draw(Engine::renderer);
 }
 
 bool Game::ShouldQuit()

@@ -1,14 +1,14 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
+#include "Engine.hpp"
 #include "GameObject.hpp"
-#include "InputHandler.hpp"
 #include "CircleCollider.hpp"
 
 class Player : public GameObject
 {
 public:
-    Player(InputHandler* InputHandler);
+    Player();
     ~Player();
 
     void Update(double deltaTime) override;

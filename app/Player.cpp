@@ -1,6 +1,6 @@
 #include "Player.hpp"
 
-Player::Player(InputHandler* inputHandler):
+Player::Player():
 moveLeft(false),
 moveRight(false),
 moveUp(false),
@@ -11,13 +11,13 @@ special(false)
     m_transform.position.x = 1024.0f / 2;
     m_transform.position.y = 768.0f / 2;
 
-    inputHandler->RegisterValue(KEYBOARD, "A", &moveLeft);
-    inputHandler->RegisterValue(KEYBOARD, "D", &moveRight);
-    inputHandler->RegisterValue(KEYBOARD, "W", &moveUp);
-    inputHandler->RegisterValue(KEYBOARD, "S", &moveDown);
-    inputHandler->RegisterValue(MOUSE_BUTTON, "Left", &fire);
-    inputHandler->RegisterValue(MOUSE_BUTTON, "Right", &special);
-    inputHandler->RegisterValue(MOUSE_POSITION, &mousePos);
+    Engine::inputHandler->RegisterValue(KEYBOARD, "A", &moveLeft);
+    Engine::inputHandler->RegisterValue(KEYBOARD, "D", &moveRight);
+    Engine::inputHandler->RegisterValue(KEYBOARD, "W", &moveUp);
+    Engine::inputHandler->RegisterValue(KEYBOARD, "S", &moveDown);
+    Engine::inputHandler->RegisterValue(MOUSE_BUTTON, "Left", &fire);
+    Engine::inputHandler->RegisterValue(MOUSE_BUTTON, "Right", &special);
+    Engine::inputHandler->RegisterValue(MOUSE_POSITION, &mousePos);
 
     m_collider = new CircleCollider(64.0f, &m_transform);
 }
