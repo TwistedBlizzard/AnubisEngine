@@ -22,6 +22,8 @@ public:
     Sprite* GetSprite();
     void SetSprite(Sprite* sprite);
 
+    Collider* GetCollider();
+
     virtual void Draw(SDL_Renderer* renderer);
 
     // Operators for casts, etc.

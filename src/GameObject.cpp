@@ -38,6 +38,11 @@ void GameObject::SetSprite(Sprite *sprite)
     m_sprite = sprite;
 }
 
+Collider *GameObject::GetCollider()
+{
+    return m_collider;
+}
+
 void GameObject::Draw(SDL_Renderer *renderer)
 {
     // Check if we have a sprite
