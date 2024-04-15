@@ -29,6 +29,8 @@ void CircleCollider::SetRadius(float radius)
 
 void CircleCollider::DrawCollider(SDL_Renderer *renderer)
 {
+    Transform transform = *m_transform + m_offset;
+
     SDL_FPoint points[37];
 
     for (int i = 0; i < 36; i++)
@@ -37,7 +39,7 @@ void CircleCollider::DrawCollider(SDL_Renderer *renderer)
         float x = cosf(angle) * m_radius;
         float y = sinf(angle) * m_radius;
 
-        points[i] = m_transform->position + Vector2f(x, y);
+        points[i] = transform.position + Vector2f(x, y);
     }
 
     points[36] = points[0];
@@ -51,10 +53,12 @@ void CircleCollider::DrawCollider(SDL_Renderer *renderer)
 
 SDL_FRect CircleCollider::GetAABB()
 {
+    Transform transform = *m_transform + m_offset;
+
     SDL_FRect boundingBox
     {
-        m_transform->position.x - m_radius,
-        m_transform->position.y - m_radius,
+        transform.position.x - m_radius,
+        transform.position.y - m_radius,
         m_radius * 2,
         m_radius * 2
     };

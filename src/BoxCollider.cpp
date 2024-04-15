@@ -49,12 +49,15 @@ void BoxCollider::DrawCollider(SDL_Renderer *renderer)
         bottomRight.y
     };
 
-    topLeft.Rotate(m_transform->rotation);
-    topRight.Rotate(m_transform->rotation);
-    bottomRight.Rotate(m_transform->rotation);
-    bottomLeft.Rotate(m_transform->rotation);
+    Transform transform = *m_transform + m_offset;
 
-    Vector2f position = m_transform->position;
+
+    topLeft.Rotate(transform.rotation);
+    topRight.Rotate(transform.rotation);
+    bottomRight.Rotate(transform.rotation);
+    bottomLeft.Rotate(transform.rotation);
+
+    Vector2f position = transform.position;
 
     SDL_FPoint points[]
     {
@@ -81,8 +84,10 @@ SDL_FRect BoxCollider::GetAABB()
         bottomRight.y
     };
 
-    bottomRight.Rotate(m_transform->rotation);
-    bottomLeft.Rotate(m_transform->rotation);
+    Transform transform = *m_transform + m_offset;
+
+    bottomRight.Rotate(transform.rotation);
+    bottomLeft.Rotate(transform.rotation);
 
     bottomRight = bottomRight.Abs();
     bottomLeft = bottomLeft.Abs();
@@ -92,8 +97,8 @@ SDL_FRect BoxCollider::GetAABB()
 
     return SDL_FRect
     {
-        m_transform->position.x - w,
-        m_transform->position.y - h,
+        transform.position.x - w,
+        transform.position.y - h,
         w * 2,
         h * 2
     };

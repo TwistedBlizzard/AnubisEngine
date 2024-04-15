@@ -19,7 +19,10 @@ public:
     virtual bool IsColliding(Collider* other) = 0;
 
     ColliderType GetType() { return m_type; }
-    Transform* GetTransform() { return m_transform; }
+
+    void SetOffset(const Transform& offset);
+    void SetPositionOffset(const Vector2f& offset);
+    void SetRotationOffset(const float& offset);
 
     void DrawAABB(SDL_Renderer* renderer);
     virtual void DrawCollider(SDL_Renderer* renderer) {}
@@ -31,6 +34,7 @@ protected:
     ColliderType m_type;
 
     Transform* m_transform;
+    Transform m_offset;
 
     virtual SDL_FRect GetAABB() = 0;
     bool CheckAABB(Collider* other);

@@ -10,6 +10,21 @@ m_ColliderColor(COLOR_YELLOW)
 Collider::~Collider()
 {}
 
+void Collider::SetOffset(const Transform &offset)
+{
+    m_offset = offset;
+}
+
+void Collider::SetPositionOffset(const Vector2f &offset)
+{
+    m_offset.position = offset;
+}
+
+void Collider::SetRotationOffset(const float &offset)
+{
+    m_offset.rotation = offset;
+}
+
 void Collider::DrawAABB(SDL_Renderer *renderer)
 {
     SDL_FRect rect = GetAABB();
