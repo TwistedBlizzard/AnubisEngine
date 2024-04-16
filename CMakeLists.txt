@@ -67,6 +67,7 @@ set(AnubisEngine_SOURCE_LIST
     src/InputHandler.cpp
     src/Sprite.cpp
     src/SpriteFactory.cpp
+    src/Timer.cpp
     src/Timing.cpp)
 
 # Add our library
