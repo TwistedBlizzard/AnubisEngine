@@ -18,6 +18,7 @@ public:
     bool RegisterValue(InputMethod method, string input, bool* value);
     bool RegisterValue(InputMethod method, Vector2f* value);
     bool RegisterValue(InputMethod method, float* value);
+    bool RegisterValue(InputMethod method, bool* value);
 
     void UnregisterValue(InputMethod method);
     void UnregisterValue(InputMethod method, string input);
@@ -41,6 +42,8 @@ private:
 
     float* m_leftTrigger;
     float* m_rightTrigger;
+
+    bool* m_mouseMotion;
 
     bool m_invertLeftX;
     bool m_invertLeftY;

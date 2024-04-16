@@ -11,6 +11,7 @@ m_leftStick(nullptr),
 m_rightStick(nullptr),
 m_leftTrigger(nullptr),
 m_rightTrigger(nullptr),
+m_mouseMotion(nullptr),
 m_invertLeftX(false),
 m_invertLeftY(false),
 m_invertRightX(false),
@@ -249,6 +250,26 @@ bool InputHandler::RegisterValue(InputMethod method, float *value)
     return true;
 }
 
+bool InputHandler::RegisterValue(InputMethod method, bool *value)
+{
+    switch (method)
+    {
+    case MOUSE_POSITION:
+    case MOUSE_RELATIVE:
+        if (m_mouseMotion)
+            cout << "Warning: Overwriting mouse motion" << endl;
+
+        m_mouseMotion = value;
+
+        break;
+    default:
+        cout << "Error: Invalid value type: float" << endl;
+        return false;
+    }
+
+    return true;
+}
+
 void InputHandler::UnregisterValue(InputMethod method)
 {
 
@@ -284,6 +305,9 @@ void InputHandler::HandleMouseMotion(float x, float y, float xrel, float yrel)
 
     if (m_mouseRel)
         *m_mouseRel = Vector2f(xrel, yrel);
+
+    if (m_mouseMotion)
+        *m_mouseMotion = true;
 }
 
 void InputHandler::HandleGamepadAxis(Uint8 axis, Sint16 value)
@@ -329,6 +353,11 @@ void InputHandler::HandleGamepadAxis(Uint8 axis, Sint16 value)
     default:
         break;
     }
+
+    if (m_mouseMotion)
+        *m_mouseMotion = false;
+}
+
 void InputHandler::SetThreshold(string axis, float threshold)
 {
     if (!m_thresholds.contains(axis))
