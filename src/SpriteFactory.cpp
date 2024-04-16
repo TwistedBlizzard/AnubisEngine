@@ -11,7 +11,8 @@ void SpriteFactory::LoadTexture(string name, string filename)
 {
     if (m_textures.contains(name))
     {
-        cout << name << " is already a texture" << endl;
+        cout << "Error: A texture already exists with name: " << name << endl;
+        return;
     }
 
     SDL_Surface* surface = IMG_Load(filename.c_str());
@@ -23,7 +24,8 @@ void SpriteFactory::LoadTexture(string name, string filename)
     }
     else
     {
-        cout << "Failed to load texture: " << filename << endl;
+        cout << "Error: Failed to load texture: " << filename << endl;
+        return;
     }
 
     SDL_DestroySurface(surface);
@@ -33,7 +35,8 @@ Sprite *SpriteFactory::Create(string name, Vector2f size)
 {
     if (!m_textures.contains(name))
     {
-        cout << "Texture \"" << name << "\" does not exist" << endl;
+        cout << "Error: Texture does not exist: " << name << endl;
+        return nullptr;
     }
 
     SDL_Texture* texture = m_textures[name];
