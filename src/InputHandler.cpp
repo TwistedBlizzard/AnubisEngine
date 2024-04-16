@@ -45,7 +45,7 @@ void InputHandler::HandleEvent(const SDL_Event &event)
     case SDL_EVENT_MOUSE_BUTTON_UP:
     {
         int button(event.button.button);
-        HandleMouseButton(button, true);
+        HandleMouseButton(button, false);
         break;
     }
     case SDL_EVENT_GAMEPAD_BUTTON_DOWN:
