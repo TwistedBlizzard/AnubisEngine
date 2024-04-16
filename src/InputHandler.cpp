@@ -2,6 +2,7 @@
 
 InputHandler::InputHandler():
 m_initialised(false),
+m_gamepad(nullptr),
 m_mousePos(nullptr),
 m_mouseRel(nullptr),
 m_leftStick(nullptr),
@@ -20,6 +21,19 @@ InputHandler::~InputHandler()
 
 void InputHandler::HandleEvent(const SDL_Event &event)
 {
+    if (!m_initialised)
+    {
+        int count;
+        SDL_JoystickID* gamepads = SDL_GetGamepads(&count);
+
+        if (count > 0)
+            m_gamepad = SDL_OpenGamepad(gamepads[0]);
+
+        SDL_free(gamepads);
+
+        m_initialised = true;
+    }
+
     switch (event.type)
     {
     case SDL_EVENT_KEY_DOWN:
@@ -72,8 +86,20 @@ void InputHandler::HandleEvent(const SDL_Event &event)
     case SDL_EVENT_GAMEPAD_AXIS_MOTION:
     {
         Uint8 axis(event.gaxis.axis);
-        float value(event.gaxis.value);
+        Sint16 value(event.gaxis.value);
         HandleGamepadAxis(axis, value);
+        break;
+    }
+    case SDL_EVENT_GAMEPAD_ADDED:
+    {
+        if (!m_gamepad)
+            m_gamepad = SDL_OpenGamepad(event.gdevice.which);
+        break;
+    }
+    case SDL_EVENT_GAMEPAD_REMOVED:
+    {
+        if (m_gamepad && m_gamepad == SDL_GetGamepadFromInstanceID(event.gdevice.which))
+            m_gamepad = nullptr;
         break;
     }
     default:
@@ -248,33 +274,33 @@ void InputHandler::HandleMouseMotion(float x, float y, float xrel, float yrel)
         *m_mouseRel = Vector2f(xrel, yrel);
 }
 
-void InputHandler::HandleGamepadAxis(Uint8 axis, float value)
+void InputHandler::HandleGamepadAxis(Uint8 axis, Sint16 value)
 {
     switch (axis)
     {
     case SDL_GAMEPAD_AXIS_LEFTX:
         if (m_leftStick)
-            m_leftStick->x = value;
+            m_leftStick->x = float(value) / SDL_MAX_SINT16;
         break;
     case SDL_GAMEPAD_AXIS_LEFTY:
         if (m_leftStick)
-            m_leftStick->y = value;
+            m_leftStick->y = float(value) / SDL_MAX_SINT16;
         break;
     case SDL_GAMEPAD_AXIS_RIGHTX:
         if (m_rightStick)
-            m_rightStick->y = value;
+            m_rightStick->x = float(value) / SDL_MAX_SINT16;
         break;
     case SDL_GAMEPAD_AXIS_RIGHTY:
         if (m_rightStick)
-            m_rightStick->y = value;
+            m_rightStick->y = float(value) / SDL_MAX_SINT16;
         break;
     case SDL_GAMEPAD_AXIS_LEFT_TRIGGER:
         if (m_leftTrigger)
-            *m_leftTrigger = value;
+            *m_leftTrigger = float(value) / SDL_MAX_SINT16;
         break;
     case SDL_GAMEPAD_AXIS_RIGHT_TRIGGER:
         if (m_rightTrigger)
-            *m_rightTrigger = value;
+            *m_rightTrigger = float(value) / SDL_MAX_SINT16;
         break;
     default:
         break;

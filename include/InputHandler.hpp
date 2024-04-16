@@ -25,6 +25,8 @@ public:
 private:
     bool m_initialised;
 
+    SDL_Gamepad* m_gamepad;
+
     map<SDL_Keycode, bool*> m_keys;
     map<int, bool*> m_mouseButtons;
     map<Uint8, bool*> m_gamepadButtons;
@@ -49,7 +51,7 @@ private:
     void HandleMouseButton(int button, bool value);
     void HandleGamepadButton(Uint8 button, bool value);
     void HandleMouseMotion(float x, float y, float xrel, float yrel);
-    void HandleGamepadAxis(Uint8 axis, float value);
+    void HandleGamepadAxis(Uint8 axis, Sint16 value);
 };
 
 #endif // INPUTHANDLER_H
