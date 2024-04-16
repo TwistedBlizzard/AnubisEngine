@@ -150,7 +150,7 @@ struct Vector2f
     {
         float angle = atan2f(y, x);
 
-        return Degrees(angle);
+        return Degrees(angle) + 90.0f;
     }
 
     void SetRotation(const float& degrees)
