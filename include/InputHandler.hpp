@@ -22,6 +22,9 @@ public:
     void UnregisterValue(InputMethod method);
     void UnregisterValue(InputMethod method, string input);
 
+    void SetThreshold(string axis, float threshold);
+    void SetDefaultThreshold(string axis);
+
 private:
     bool m_initialised;
 
@@ -43,6 +46,8 @@ private:
     bool m_invertLeftY;
     bool m_invertRightX;
     bool m_invertRightY;
+
+    map<string, Sint16> m_thresholds;
 
     ifstream m_stream;
     int m_line;

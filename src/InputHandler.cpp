@@ -1,5 +1,7 @@
 #include "InputHandler.hpp"
 
+#define DEFAULT_AXIS_THRESHOLD 2000
+
 InputHandler::InputHandler():
 m_initialised(false),
 m_gamepad(nullptr),
@@ -14,7 +16,17 @@ m_invertLeftY(false),
 m_invertRightX(false),
 m_invertRightY(false),
 m_line(0)
-{}
+{
+    m_thresholds =
+    {
+        {"LeftX",           DEFAULT_AXIS_THRESHOLD},
+        {"LeftY",           DEFAULT_AXIS_THRESHOLD},
+        {"RightX",          DEFAULT_AXIS_THRESHOLD},
+        {"RightY",          DEFAULT_AXIS_THRESHOLD},
+        {"LeftTrigger",     DEFAULT_AXIS_THRESHOLD},
+        {"RightTrigger",    DEFAULT_AXIS_THRESHOLD}
+    };
+}
 
 InputHandler::~InputHandler()
 {}
@@ -279,30 +291,76 @@ void InputHandler::HandleGamepadAxis(Uint8 axis, Sint16 value)
     switch (axis)
     {
     case SDL_GAMEPAD_AXIS_LEFTX:
+        if (abs(value) < m_thresholds.at("LeftX"))
+            value = 0;
         if (m_leftStick)
             m_leftStick->x = float(value) / SDL_MAX_SINT16;
         break;
     case SDL_GAMEPAD_AXIS_LEFTY:
+        if (abs(value) < m_thresholds.at("LeftY"))
+            value = 0;
         if (m_leftStick)
             m_leftStick->y = float(value) / SDL_MAX_SINT16;
         break;
     case SDL_GAMEPAD_AXIS_RIGHTX:
+        if (abs(value) < m_thresholds.at("RightX"))
+            value = 0;
         if (m_rightStick)
             m_rightStick->x = float(value) / SDL_MAX_SINT16;
         break;
     case SDL_GAMEPAD_AXIS_RIGHTY:
+        if (abs(value) < m_thresholds.at("RightY"))
+            value = 0;
         if (m_rightStick)
             m_rightStick->y = float(value) / SDL_MAX_SINT16;
         break;
     case SDL_GAMEPAD_AXIS_LEFT_TRIGGER:
+        if (abs(value) < m_thresholds.at("LeftTrigger"))
+            value = 0;
         if (m_leftTrigger)
             *m_leftTrigger = float(value) / SDL_MAX_SINT16;
         break;
     case SDL_GAMEPAD_AXIS_RIGHT_TRIGGER:
+        if (abs(value) < m_thresholds.at("RightTrigger"))
+            value = 0;
         if (m_rightTrigger)
             *m_rightTrigger = float(value) / SDL_MAX_SINT16;
         break;
     default:
         break;
     }
+void InputHandler::SetThreshold(string axis, float threshold)
+{
+    if (!m_thresholds.contains(axis))
+    {
+        cout << "Error: Invalid axis: " << axis << endl;
+        return;
+    }
+
+    if (threshold < 0.0f)
+    {
+        cout << "Error: Threshold must be greater than 0" << endl;
+        return;
+    }
+
+    if (threshold >= 1.0f)
+    {
+        cout << "Error: Thresholg must be less than 1" << endl;
+        return;
+    }
+
+    threshold *= SDL_MAX_SINT16;
+
+    m_thresholds[axis] = Sint16(threshold);
+}
+
+void InputHandler::SetDefaultThreshold(string axis)
+{
+    if (!m_thresholds.contains(axis))
+    {
+        cout << "Error: Invalid axis: " << axis << endl;
+        return;
+    }
+
+    m_thresholds[axis] = DEFAULT_AXIS_THRESHOLD;
 }
