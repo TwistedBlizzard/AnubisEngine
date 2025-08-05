@@ -43,7 +43,6 @@ void InputHandler::HandleEvent(const SDL_Event &event)
             m_gamepad = SDL_OpenGamepad(gamepads[0]);
 
         SDL_free(gamepads);
-
         m_initialised = true;
     }
 
@@ -53,13 +52,13 @@ void InputHandler::HandleEvent(const SDL_Event &event)
     {
         if (event.key.repeat)
             break;
-        SDL_Keycode key(event.key.keysym.sym);
+        const auto key = event.key.key;
         HandleKeyboard(key, true);
         break;
     }
     case SDL_EVENT_KEY_UP:
     {
-        SDL_Keycode key(event.key.keysym.sym);
+        const auto key = event.key.key;
         HandleKeyboard(key, false);
         break;
     }
@@ -111,7 +110,7 @@ void InputHandler::HandleEvent(const SDL_Event &event)
     }
     case SDL_EVENT_GAMEPAD_REMOVED:
     {
-        if (m_gamepad && m_gamepad == SDL_GetGamepadFromInstanceID(event.gdevice.which))
+        if (m_gamepad && m_gamepad == SDL_GetGamepadFromID(event.gdevice.which))
             m_gamepad = nullptr;
         break;
     }

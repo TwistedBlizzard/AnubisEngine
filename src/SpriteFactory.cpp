@@ -40,14 +40,14 @@ Sprite *SpriteFactory::Create(string name, Vector2f size)
     }
 
     SDL_Texture* texture = m_textures[name];
-    int x, y;
-    SDL_QueryTexture(texture, NULL, NULL, &x, &y);
+    const auto w = static_cast<float>(texture->w);
+    const auto h = static_cast<float>(texture->h);
     SDL_FRect source
     {
         0.0f,
         0.0f,
-        (float)x,
-        (float)y
+        w,
+        h
     };
 
     Sprite* sprite = new Sprite();

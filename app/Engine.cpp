@@ -13,7 +13,7 @@ void Engine::AutoInit(SDL_Window *window)
     if (s_initialised)
         return;
 
-    renderer = SDL_CreateRenderer(window, NULL, 0);
+    renderer = SDL_CreateRenderer(window, "AnubisEngine Demo");
     timing = new Timing();
     spriteFactory = new SpriteFactory(renderer);
     gameObjectFactory = new GameObjectFactory(spriteFactory);
